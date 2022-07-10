@@ -21,11 +21,12 @@ package de.kissenpvp.spigot.api.base;
 
 import de.kissenpvp.api.base.Kissen;
 import de.kissenpvp.api.base.plugin.KissenPlugin;
-import de.kissenpvp.core.base.KissenCore;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.jar.JarFile;
 
 /**
  * @author Groldi
@@ -52,9 +53,14 @@ public abstract class PluginSpigot extends JavaPlugin implements KissenPlugin
 
     @Override public abstract String getPackage();
 
-    @Override @NotNull public File getFile()
+    @Override public @NotNull File getFile()
     {
         return super.getFile();
+    }
+
+    @Override public JarFile getJarFile() throws IOException
+    {
+        return new JarFile(getFile());
     }
 
     @Override public boolean onPreStart()
@@ -109,6 +115,6 @@ public abstract class PluginSpigot extends JavaPlugin implements KissenPlugin
 
     @Override public final Kissen getCore()
     {
-        return KissenCore.getInstance();
+        return Kissen.getInstance();
     }
 }
